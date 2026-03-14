@@ -1,0 +1,77 @@
+@model List<appdemomvc.Models.Product>
+@{
+    ViewData["Title"] = "Mi Lista de Deseos";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">💝 Mi Lista de Deseos</h1>
+    <p class="text-center text-success mb-4">
+        <strong>¡Productos agregados exitosamente!</strong>
+    </p>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            @if (Model != null && Model.Any())
+            {
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">Productos en tu Lista</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Descripción</th>
+                                    <th class="text-end">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var producto in Model)
+                                {
+                                    <tr>
+                                        <td><strong>@producto.Nombre</strong></td>
+                                        <td>@producto.Descripcion</td>
+                                        <td class="text-end text-success">
+                                            <strong>$@producto.Precio.ToString("N2")</strong>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-light">
+                                    <td colspan="2"><strong>Total:</strong></td>
+                                    <td class="text-end">
+                                        <strong class="text-success">
+                                            $@Model.Sum(p => p.Precio).ToString("N2")
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a asp-controller="IWish" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left"></i> Volver a la Lista de Productos
+                    </a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-house"></i> Ir al Inicio
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <p class="mb-0">No hay productos en tu lista de deseos.</p>
+                </div>
+                <div class="text-center">
+                    <a asp-controller="IWish" asp-action="Index" class="btn btn-primary">
+                        Agregar Productos
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

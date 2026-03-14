@@ -1,0 +1,65 @@
+@model appdemomvc.Models.WishListViewModel
+@{
+    ViewData["Title"] = "Mi Lista de Deseos";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">🎁 Mi Lista de Deseos</h1>
+    <p class="text-center text-muted">Selecciona los productos que deseas agregar a tu lista</p>
+
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["Mensaje"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <form asp-controller="IWish" asp-action="AgregarALista" method="post">
+        <div class="row">
+            @for (int i = 0; i < Model.ProductosDisponibles.Count; i++)
+            {
+                var producto = Model.ProductosDisponibles[i];
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" 
+                                       type="checkbox" 
+                                       name="ProductosSeleccionados" 
+                                       value="@producto.Id" 
+                                       id="producto@(producto.Id)">
+                                <label class="form-check-label" for="producto@(producto.Id)">
+                                    <h5 class="card-title">@producto.Nombre</h5>
+                                </label>
+                            </div>
+                            <p class="card-text text-muted">@producto.Descripcion</p>
+                            <p class="card-text">
+                                <strong class="text-primary">Precio: $@producto.Precio.ToString("N2")</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg">
+                <i class="bi bi-heart-fill"></i> Agregar a Mi Lista de Deseos
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .form-check-input:checked ~ label {
+        color: #198754;
+        font-weight: bold;
+    }
+</style>
