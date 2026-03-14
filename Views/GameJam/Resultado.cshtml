@@ -1,0 +1,83 @@
+@model GameJamRegistration
+
+@{
+    ViewData["Title"] = "Resultado del Registro";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        @if (Model.PagoMatricula)
+        {
+            <div class="card shadow border-success">
+                <div class="card-header bg-success text-white">
+                    <h2 class="mb-0">
+                        <i class="bi bi-check-circle"></i> ¡Registro Completado!
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">✅ Completado su registro</h4>
+                        <p class="mb-0">Su inscripción al GameJam 2026 ha sido procesada exitosamente.</p>
+                    </div>
+                    
+                    <h5 class="mt-4">Datos del Registro:</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>Nombre:</strong> @Model.NombreJugador
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Fecha de Nacimiento:</strong> @Model.FechaNacimiento?.ToString("dd/MM/yyyy")
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Hobbies:</strong> @Model.Hobbies
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Estado de Pago:</strong> <span class="badge bg-success">Completado</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card shadow border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h2 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Registro Pendiente
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading">⚠️ Ud aún no ha completado su pago</h4>
+                        <p class="mb-0">Para finalizar su inscripción al GameJam 2026, debe completar el pago de matrícula.</p>
+                    </div>
+                    
+                    <h5 class="mt-4">Datos Registrados:</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>Nombre:</strong> @Model.NombreJugador
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Fecha de Nacimiento:</strong> @Model.FechaNacimiento?.ToString("dd/MM/yyyy")
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Hobbies:</strong> @Model.Hobbies
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Estado de Pago:</strong> <span class="badge bg-danger">Pendiente</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        }
+        
+        <div class="mt-4 text-center">
+            <a asp-action="Index" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Nuevo Registro
+            </a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-house"></i> Volver al Inicio
+            </a>
+        </div>
+    </div>
+</div>

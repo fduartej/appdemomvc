@@ -1,0 +1,55 @@
+@model GameJamRegistration
+
+@{
+    ViewData["Title"] = "Registro GameJam";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">
+                    <i class="bi bi-controller"></i> Registro GameJam 2026 - Primera Carga
+                </h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="Registrar" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="NombreJugador" class="form-label"></label>
+                        <input asp-for="NombreJugador" class="form-control" placeholder="Ingrese su nombre completo" />
+                        <span asp-validation-for="NombreJugador" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="FechaNacimiento" class="form-label"></label>
+                        <input asp-for="FechaNacimiento" class="form-control" type="date" />
+                        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Hobbies" class="form-label"></label>
+                        <textarea asp-for="Hobbies" class="form-control" rows="3" placeholder="Ej: programación, diseño gráfico, música..."></textarea>
+                        <span asp-validation-for="Hobbies" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input asp-for="PagoMatricula" class="form-check-input" type="checkbox" />
+                        <label asp-for="PagoMatricula" class="form-check-label"></label>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-send"></i> Registrarse
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
